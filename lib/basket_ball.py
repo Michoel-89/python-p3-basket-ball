@@ -182,3 +182,76 @@ def game_dict():
             ]
         }
     }
+game = game_dict()
+home = game['home']['players']
+away = game['away']['players']
+def num_points_per_game(player):
+    for item in home:
+        if(item['name'] == player):
+            return item['points_per_game']
+    for item in away:
+        if(item['name'] == player):
+            return item['points_per_game']
+def player_age(player):
+    for item in home:
+        if(item['name'] == player):
+            return item['age']
+    for item in away:
+        if(item['name'] == player):
+            return item['age']
+def team_colors(teamName):
+    if(game['home']['team_name'] == teamName):
+        return game['home']['colors']
+    if(game['away']['team_name'] == teamName):
+        return game['away']['colors']
+
+def team_names():
+    lis = []
+    lis.append(game['home']['team_name'])
+    lis.append(game['away']['team_name'])
+    return lis
+def player_numbers(team_name):
+    jersey_nums = []
+    if(game['home']['team_name'] == team_name):
+        for player in home:
+            jersey_nums.append(player["number"])
+    if(game['away']['team_name'] == team_name):
+        for player in away:
+            jersey_nums.append(player["number"])
+    return jersey_nums
+
+def player_stats(player):
+    for item in home:
+        if(item['name'] == player):
+            return item
+    for item in away:
+        if(item['name'] == player):
+            return item
+
+def average_rebounds_by_shoe_brand():
+    shoe_brands = {
+        'Nike': [],
+        'Adidas': [],
+        'Puma': [],
+        'Jordan': []
+    }
+    for player in home:
+        brand = player['shoe_brand']
+        rebounds = player["rebounds_per_game"]
+        shoe_brands[brand].append(rebounds)
+    for player in away:
+        brand = player['shoe_brand']
+        rebounds = player["rebounds_per_game"]
+        shoe_brands[brand].append(rebounds)
+    for key, value in shoe_brands.items():
+        average_rebounds = sum(value) / len(value)
+        formatted = "{:.2f}".format(average_rebounds)
+        shoe_brands[key] = formatted
+    for key, value in shoe_brands.items():
+        print(f'{key}:  {value}')
+    
+print(average_rebounds_by_shoe_brand())
+# - Nike:  4.93
+# E       - Adidas:  7.07
+# E       - Puma:  8.50
+# E       - Jordan:  3.80
